@@ -1,0 +1,28 @@
+import numpy as np
+
+def hill_climb(func, start_x, step_size=0.1, max_iter=1000):
+    x = start_x  # current solution
+    fx = func(x) # current value
+
+    for _ in range(max_iter):
+        # generate a small random neighbor
+        new_x = x + np.random.uniform(-step_size, step_size)
+        new_fx = func(new_x)
+
+        # if neighbor is better, move there
+        if new_fx > fx:
+            x, fx = new_x, new_fx
+
+    return x, fx
+
+
+# Example usage
+if __name__ == "__main__":
+    # function to maximize
+    def f(x):
+        return -(x - 3)**2 + 9   # peak at x=3
+
+    best_x, best_fx = hill_climb(f, start_x=np.random.uniform(-5, 5))
+    print("Best x:", best_x)
+    print("Best f(x):", best_fx)
+
